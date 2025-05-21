@@ -1,7 +1,40 @@
 import * as React from "react";
 
-export interface Props {}
+// CSS
+import styles from "./TaskList.module.css";
 
-export default function TaskList(props: Props) {
-  return <div>formulário</div>;
+// Interfaces
+import { ITask } from "../interfaces/Task";
+
+export interface Props {
+  taskList: ITask[];
+  handleDelete(id: number): void;
+}
+
+export default function TaskList({ taskList, handleDelete }: Props) {
+  return (
+    <>
+      {taskList.length > 0 ? (
+        taskList.map((task) => (
+          <div key={task.id} className={styles.task}>
+            <div className={styles.details}>
+              <h4>{task.title}</h4>
+              <p>Dificuldade: {task.difficulty}</p>
+            </div>
+            <div className={styles.actions}>
+              <i className="bi bi-pencil"></i>
+              <i
+                className="bi bi-trash"
+                onClick={() => {
+                  handleDelete(task.id);
+                }}
+              ></i>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>Não há tarefas cadastradas!</p>
+      )}
+    </>
+  );
 }
