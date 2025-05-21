@@ -9,9 +9,14 @@ import { ITask } from "../interfaces/Task";
 export interface Props {
   taskList: ITask[];
   handleDelete(id: number): void;
+  handleEdit(task: ITask): void;
 }
 
-export default function TaskList({ taskList, handleDelete }: Props) {
+export default function TaskList({
+  taskList,
+  handleDelete,
+  handleEdit,
+}: Props) {
   return (
     <>
       {taskList.length > 0 ? (
@@ -22,7 +27,12 @@ export default function TaskList({ taskList, handleDelete }: Props) {
               <p>Dificuldade: {task.difficulty}</p>
             </div>
             <div className={styles.actions}>
-              <i className="bi bi-pencil"></i>
+              <i
+                className="bi bi-pencil"
+                onClick={() => {
+                  handleEdit(task);
+                }}
+              ></i>
               <i
                 className="bi bi-trash"
                 onClick={() => {
